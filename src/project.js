@@ -1,4 +1,4 @@
-export default function Project(title) {
-  this.name = title;
+export default function Project(name) {
+  this.name = name;
   this.tasks = [];
 }
