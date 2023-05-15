@@ -1,15 +1,15 @@
 function addProject(todo) {
-  const ul = document.querySelector('.project-list');
-  const li = document.createElement('li');
-  li.textContent = todo;
-  ul.append(li);
+  const projectList = document.querySelector('.project-list');
+  const newProject = document.createElement('li');
+  newProject.textContent = todo;
+  projectList.append(newProject);
 }
 
 function addTask(task) {
-  const ul = document.querySelector('.tasks-list');
-  const li = document.createElement('li');
-  li.textContent = task;
-  ul.append(li);
+  const tasksList = document.querySelector('.tasks-list');
+  const newTask = document.createElement('li');
+  newTask.textContent = task;
+  tasksList.append(newTask);
 }
 
 export { addProject, addTask };
