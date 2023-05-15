@@ -1,6 +1,6 @@
-import todoDatabase from './todoDatabase';
-import TodoFactory from './todoFactory';
-import { addProject as domAddProject, addTask as domAddTask } from './domManipulation';
+import todoDatabase from '../model/todoDatabase';
+import TodoFactory from '../model/todoFactory';
+import { addProject as domAddProject, addTask as domAddTask } from '../view/domManipulation';
 
 const form = document.querySelector('form');
 const todos = todoDatabase();
