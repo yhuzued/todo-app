@@ -1,3 +1,4 @@
+import '../style.css';
 import todoDatabase from '../model/todoDatabase';
 import TodoFactory from '../model/todoFactory';
 import { addProject as domAddProject, addTask as domAddTask } from '../view/domManipulation';
