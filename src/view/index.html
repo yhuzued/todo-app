@@ -8,7 +8,7 @@
   <title>Todo App</title>
 </head>
 
-<body class="container mx-auto grid grid-cols-8 h-screen p-5">
+<body class="container mx-auto grid grid-cols-8 h-screen">
   <aside class="sidebar border-2 col-span-2 flex flex-col justify-between">
     <div class="project">
       <h2 class="text-xl">Project</h2>
@@ -21,12 +21,10 @@
       </form>
     </div>
   </aside>
-  <main id="todo" class="border-2 col-span-6 flex flex-col justify-between">
-    <div class="tasks">
-      <h2 id="title" class="text-xl">My Day</h2>
-      <ul class="tasks-list overflow-y-scroll"></ul>
-    </div>
-    <form id='new-task-form' class="flex justify-center p-3 gap-2">
+  <main id="todo" class="border-2 col-span-6 max-h-screen flex flex-col">
+    <h2 id="title" class="text-xl">My Day</h2>
+    <ul class="tasks-list border-2 grow max-h-fit overflow-auto"></ul>
+    <form id="new-task-form" class="flex justify-center p-3 gap-2">
       <input type="text" name="task" id="task" class="border-2 border-black px-3 py-1 w-1/2">
       <input type="submit" class="bg-cyan-900 px-3 py-1 text-white rounded-md cursor-pointer">
     </form>
