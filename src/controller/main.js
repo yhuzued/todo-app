@@ -1,17 +1,27 @@
-import '../style.css';
-import { refreshDom } from '../view/domManipulation';
+import '../view/style.css';
+import { refreshDom } from './domController';
 import { getTodoList, isTodoListExist } from './databaseController';
-import addTask from './todoController';
+import { addTask, createNewProject } from './todoController';
 
-const form = document.querySelector('form');
 if (isTodoListExist()) {
   getTodoList();
-  refreshDom();
+} else {
+  createNewProject('Default Folder');
 }
 
-form.addEventListener('submit', (e) => {
+refreshDom();
+
+document.addEventListener('submit', (e) => {
   e.preventDefault();
-  const taskInput = document.querySelector('#task');
-  addTask(taskInput.value);
-  form.reset();
+  if (e.target.id === 'new-task-form') {
+    const taskInput = document.querySelector('#task');
+    addTask(taskInput.value);
+  }
+
+  if (e.target.id === 'new-project-form') {
+    const taskInput = document.querySelector('#project');
+    createNewProject(taskInput.value);
+  }
+  refreshDom();
+  e.target.reset();
 });
