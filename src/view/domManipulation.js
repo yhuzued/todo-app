@@ -1,15 +1,17 @@
-function addProject(todo) {
-  const projectList = document.querySelector('.project-list');
-  const newProject = document.createElement('li');
-  newProject.textContent = todo;
-  projectList.append(newProject);
+import { todos } from '../model/todoDatabase';
+
+function addElementDom(elementClass, projectOrTask) {
+  const element = document.querySelector(elementClass);
+  const newElement = document.createElement('li');
+  newElement.textContent = projectOrTask;
+  element.append(newElement);
 }
 
-function addTask(task) {
-  const tasksList = document.querySelector('.tasks-list');
-  const newTask = document.createElement('li');
-  newTask.textContent = task;
-  tasksList.append(newTask);
+function refreshDom() {
+  todos.database.forEach((project) => {
+    addElementDom('.project-list', project.name);
+    project.tasks.forEach((task) => addElementDom('.tasks-list', task.title));
+  });
 }
 
-export { addProject, addTask };
+export { addElementDom, refreshDom };
