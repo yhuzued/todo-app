@@ -6,19 +6,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo App</title>
-  <script src="./bundle.js" defer></script>
-</head>
+<script defer src="bundle.js"></script></head>
 
-<body>
-  <main id="todo">
-    <form>
-      <input type="text" name="task" id="task">
-      <input type="submit">
+<body class="container mx-auto grid grid-cols-8 h-screen p-5">
+  <aside class="sidebar border-2 col-span-2">
+    <div class="project">
+      <h2 class="text-xl">Project</h2>
+      <ul class="project-list"></ul>
+    </div>
+  </aside>
+  <main id="todo" class="border-2 col-span-6 flex flex-col justify-between">
+    <div class="tasks">
+      <h2 class="text-xl">Tasks</h2>
+      <ul class="tasks-list overflow-y-scroll"></ul>
+    </div>
+    <form class="flex justify-center p-3 gap-2">
+      <input type=" text" name="task" id="task" class="border-2 border-black px-3 py-1 w-1/2">
+      <input type="submit" class="bg-cyan-900 px-3 py-1 text-white rounded-md">
     </form>
-    <h2>Project</h2>
-    <ul class="project-list"></ul>
-    <h2>Tasks</h2>
-    <ul class="tasks-list"></ul>
   </main>
 </body>
 
