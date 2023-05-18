@@ -1,9 +1,7 @@
-export default function todoDatabase() {
-  const database = [];
-
-  function add(project) {
-    database.push(project);
-  }
-
-  return { database, add };
+function TodoDatabase() {
+  this.database = [];
 }
+
+const todos = new TodoDatabase();
+
+export { TodoDatabase, todos };
