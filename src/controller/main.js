@@ -6,7 +6,7 @@ import { addTask, createNewProject } from './todoController';
 if (isTodoListExist()) {
   getTodoList();
 } else {
-  createNewProject('Default Folder');
+  createNewProject('My Day');
 }
 
 refreshDom();

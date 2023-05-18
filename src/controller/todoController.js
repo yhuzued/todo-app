@@ -15,7 +15,7 @@ function isProjectExist(project) {
   return todos.database.some((obj) => obj.name === project);
 }
 
-export default function addTask(task, project = 'Default Folder') {
+export default function addTask(task, project = 'My Day') {
   if (!isProjectExist(project)) {
     createNewProject(project);
   }
