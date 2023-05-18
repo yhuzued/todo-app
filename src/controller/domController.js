@@ -8,6 +8,9 @@ function addElementDom(elementClass, projectOrTask) {
 }
 
 function refreshDom() {
+  document.querySelector('.project-list').innerHTML = '';
+  document.querySelector('.tasks-list').innerHTML = '';
+
   todos.database.forEach((project) => {
     addElementDom('.project-list', project.name);
     project.tasks.forEach((task) => addElementDom('.tasks-list', task.title));
