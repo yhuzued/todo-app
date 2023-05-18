@@ -11,11 +11,19 @@ if (isTodoListExist()) {
 
 refreshDom();
 
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('item-project')) {
+    document.getElementById('title').textContent = e.target.textContent;
+    refreshDom();
+  }
+});
+
 document.addEventListener('submit', (e) => {
   e.preventDefault();
   if (e.target.id === 'new-task-form') {
     const taskInput = document.querySelector('#task');
-    addTask(taskInput.value);
+    const project = document.getElementById('title');
+    addTask(taskInput.value, project.textContent);
   }
 
   if (e.target.id === 'new-project-form') {
