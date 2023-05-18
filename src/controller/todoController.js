@@ -1,35 +1,27 @@
-import '../style.css';
-import todoDatabase from '../model/todoDatabase';
-import TodoFactory from '../model/todoFactory';
-import { addProject as domAddProject, addTask as domAddTask } from '../view/domManipulation';
-
-const todos = todoDatabase();
+import { Project, Task } from '../model/project';
+import { todos } from '../model/todoDatabase';
+import { saveTodoList } from './databaseController';
 
 function createNewProject(task, project) {
-  const newProject = new TodoFactory(task, project);
-  todos.add(newProject);
-  domAddProject(project);
-  domAddTask(task);
-  newProject.addTodo(task);
+  const newProject = new Project(project);
+  newProject.tasks.push(new Task(task));
+  todos.database.push(newProject);
 }
 
 function insertToProject(task, project) {
-  const existingProject = todos.database.find((obj) => obj.project.name === project);
-  existingProject.addTodo(task);
-  domAddTask(task);
-  return existingProject;
+  const existProject = todos.database.find((obj) => obj.name === project);
+  existProject.tasks.push(new Task(task));
 }
 
 function isProjectExist(project) {
-  return todos.database.some((task) => task.project.name === project);
+  return todos.database.some((obj) => obj.name === project);
 }
 
-function addTask(task, project = 'Default Folder') {
-  if (!isProjectExist(project)) {
-    createNewProject(task, project);
-  } else {
+export default function addTask(task, project = 'Default Folder') {
+  if (isProjectExist(project)) {
     insertToProject(task, project);
+  } else {
+    createNewProject(task, project);
   }
+  saveTodoList();
 }
-
-export { addTask, todos };
