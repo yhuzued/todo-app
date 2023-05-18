@@ -1,5 +1,6 @@
 import { Project, Task } from '../model/project';
 import { todos } from '../model/todoDatabase';
+import { addElementDom } from '../view/domManipulation';
 import { saveTodoList } from './databaseController';
 
 function createNewProject(task, project) {
@@ -22,6 +23,8 @@ export default function addTask(task, project = 'Default Folder') {
     insertToProject(task, project);
   } else {
     createNewProject(task, project);
+    addElementDom('.project-list', project);
   }
+  addElementDom('.tasks-list', task);
   saveTodoList();
 }

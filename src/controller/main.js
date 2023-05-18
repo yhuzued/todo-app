@@ -1,7 +1,13 @@
-import { addTask } from './todoController';
+import '../style.css';
+import { refreshDom } from '../view/domManipulation';
+import { getTodoList, isTodoListExist } from './databaseController';
+import addTask from './todoController';
 
 const form = document.querySelector('form');
-addTask('Cek rekening koran');
+if (isTodoListExist()) {
+  getTodoList();
+  refreshDom();
+}
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
