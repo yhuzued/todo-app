@@ -8,25 +8,25 @@
   <title>Todo App</title>
 </head>
 
-<body class="container mx-auto grid grid-cols-8 h-screen">
-  <aside class="sidebar border-2 col-span-2 flex flex-col justify-between">
-    <div class="project">
-      <h2 class="text-xl">Project</h2>
-      <ul class="project-list"></ul>
-    </div>
-    <div class="new-project w-fit">
+<body class="grid grid-cols-8 h-screen font-sans bg-gray-200">
+  <aside class="sidebar col-span-2 flex flex-col max-h-screen bg-blue-400 text-slate-50">
+    <h2 class="text-xl p-5 p-5">Project</h2>
+    <ul class="project-list px-5 overflow-auto p-5 grow"></ul>
+    <div class="new-project w-full">
       <form id='new-project-form' class="flex p-3">
         <input type="submit" value="+" class="mr-3">
-        <input type="text" name="project" id="project" class="w-full border-2">
+        <input type="text" name="project" id="project"
+          class="px-3 px-3 py-2 w-1/2 grow text-black outline-none rounded-sm" placeholder="Add new project">
       </form>
     </div>
   </aside>
-  <main id="todo" class="border-2 col-span-6 max-h-screen flex flex-col">
-    <h2 id="title" class="text-xl">My Day</h2>
-    <ul class="tasks-list border-2 grow max-h-fit overflow-auto"></ul>
-    <form id="new-task-form" class="flex justify-center p-3 gap-2">
-      <input type="text" name="task" id="task" class="border-2 border-black px-3 py-1 w-1/2">
-      <input type="submit" class="bg-cyan-900 px-3 py-1 text-white rounded-md cursor-pointer">
+  <main id="todo" class="col-span-6 max-h-screen flex flex-col p-5">
+    <h2 id="title" class="text-3xl px-5 py-3 text-white bg-white text-gray-700">My Day</h2>
+    <ul class="tasks-list grow max-h-fit overflow-auto bg-white px-5 py-3 bg-white text-gray-700"></ul>
+    <form id="new-task-form" class="flex justify-between px-5 py-3 text-white bg-slate-300 text-gray-700">
+      <input type="submit" class="px-3 py-1 text-white cursor-pointer" value="+">
+      <input type="text" name="task" id="task" class="px-3 px-3 py-2 w-1/2 grow text-black outline-none rounded-sm"
+        placeholder="Add new task">
     </form>
   </main>
 </body>
