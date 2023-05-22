@@ -11,7 +11,7 @@ function Task(title) {
   return {
     title,
     isCompleted: false,
-    creteadAt: format(startOfToday(), 'dd MM yyyy'),
+    createdAt: format(startOfToday(), 'dd MM yyyy'),
   };
 }
 
