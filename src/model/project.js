@@ -1,4 +1,4 @@
-import { startOfToday, format } from 'date-fns';
+import { format } from 'date-fns';
 
 class Project {
   constructor(name) {
@@ -11,7 +11,7 @@ function Task(title) {
   return {
     title,
     isCompleted: false,
-    createdAt: format(startOfToday(), 'dd MM yyyy'),
+    createdAt: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
   };
 }
 
