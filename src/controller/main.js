@@ -2,6 +2,8 @@ import '../assets/style.css';
 import refreshDom from './domController';
 import { getTodoList, isTodoListExist, saveTodoList } from './databaseController';
 import { addTask, createNewProject } from './todoController';
+import circleOutline from '../assets/icon/circle-outline.svg';
+import circleCheck from '../assets/icon/check-circle-outline .svg';
 
 const handleProjectItemClick = (e) => {
   if (e.target.classList.contains('item-project')) {
@@ -29,8 +31,22 @@ const handleFormSubmit = (e) => {
   e.target.reset();
 };
 
+const imageOver = (e) => {
+  if (e.target.classList.contains('check')) {
+    e.target.src = circleCheck;
+  }
+};
+
+const imageOut = (e) => {
+  if (e.target.classList.contains('check')) {
+    e.target.src = circleOutline;
+  }
+};
+
 document.addEventListener('click', handleProjectItemClick);
 document.addEventListener('submit', handleFormSubmit);
+document.addEventListener('mouseover', imageOver);
+document.addEventListener('mouseout', imageOut);
 
 if (isTodoListExist()) {
   getTodoList();
