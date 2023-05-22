@@ -8,6 +8,13 @@ const hookElement = (element) => document.querySelector(element);
 
 const createElement = (element) => document.createElement(element);
 
+const notification = () => {
+  hookElement('.notification').classList.remove('hidden');
+  setTimeout(() => {
+    hookElement('.notification').classList.add('hidden');
+  }, 2000);
+};
+
 const listTask = (task) => {
   const mainContainer = createElement('div');
   mainContainer.classList.add('bg-gray-100', 'p-2', 'mb-3', 'rounded-md', 'flex', 'gap-2', 'items-center');
@@ -53,7 +60,7 @@ const createProjectElement = (project) => {
   return projectElement;
 };
 
-export default function refreshDom() {
+function refreshDom() {
   const projectListElement = hookElement('.project-list');
   const tasksListElement = hookElement('.tasks-list');
   projectListElement.innerHTML = '';
@@ -67,8 +74,12 @@ export default function refreshDom() {
     if (project.name === selectedTitle) {
       project.tasks.forEach((task) => {
         const tasksList = hookElement('.tasks-list');
-        tasksList.append(listTask(task));
+        if (!task.isCompleted) {
+          tasksList.append(listTask(task));
+        }
       });
     }
   });
 }
+
+export { refreshDom, notification };
