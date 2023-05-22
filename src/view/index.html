@@ -8,8 +8,8 @@
   <title>Todo App</title>
 </head>
 
-<body class="grid grid-cols-8 h-screen font-sans bg-gray-200">
-  <aside class="sidebar col-span-2 flex flex-col max-h-screen bg-blue-400 text-slate-50">
+<body class="grid grid-cols-8 h-screen font-sans bg-white">
+  <aside class="sidebar col-span-2 flex flex-col max-h-screen bg-slate-700 text-slate-50">
     <h2 class="text-xl p-5 p-5">Project</h2>
     <ul class="project-list px-5 overflow-auto p-5 grow"></ul>
     <div class="new-project w-full">
@@ -21,12 +21,12 @@
     </div>
   </aside>
   <main id="todo" class="col-span-6 max-h-screen flex flex-col p-5">
-    <h2 id="title" class="text-3xl px-5 py-3 text-white bg-white text-gray-700">My Day</h2>
-    <ul class="tasks-list grow max-h-fit overflow-auto bg-white px-5 py-3 bg-white text-gray-700"></ul>
-    <form id="new-task-form" class="flex justify-between px-5 py-3 text-white bg-slate-300 text-gray-700">
+    <h2 id="title" class="text-3xl px-5 py-3 bg-white">My Day</h2>
+    <ul class="tasks-list grow max-h-fit overflow-auto bg-white px-5 py-3 bg-white"></ul>
+    <form id="new-task-form" class="flex justify-between px-5 py-3 text-white bg-slate-500">
       <input type="submit" class="px-3 py-1 text-white cursor-pointer" value="+">
-      <input type="text" name="task" id="task" class="px-3 px-3 py-2 w-1/2 grow text-black outline-none rounded-sm"
-        placeholder="Add new task">
+      <input type="text" name="task" id="task" class="px-3 px-3 py-2 w-1/2 grow outline-none rounded-sm text-black"
+        placeholder="Add new task" autofocus="autofocus">
     </form>
   </main>
 </body>
