@@ -1,33 +1,43 @@
+import { formatDistanceToNow, parse } from 'date-fns';
 import { todos } from '../model/todoDatabase';
+import circleOutline from '../assets/icon/circle-outline.svg';
 
 const hookElement = (element) => document.querySelector(element);
 
 const createElement = (element) => document.createElement(element);
 
 const listTask = (task) => {
-  const container = createElement('div');
-  container.classList.add('bg-gray-100', 'p-2', 'mb-3', 'flex', 'gap-3', 'rounded-md');
+  const mainContainer = createElement('div');
+  mainContainer.classList.add('bg-gray-100', 'p-2', 'mb-3', 'rounded-md', 'flex', 'gap-2', 'items-center');
+
+  const checkbox = new Image();
+  checkbox.src = circleOutline;
+  checkbox.classList.add('check', 'h-6', 'w-6', 'cursor-pointer');
 
   const title = createElement('p');
   title.textContent = task.title;
   title.classList.add('grow');
 
-  const isCompleted = createElement('p');
-  isCompleted.textContent = task.isCompleted;
-
   const createdAt = createElement('p');
-  createdAt.textContent = task.createdAt;
+  const distance = formatDistanceToNow(parse(task.createdAt.toString(), 'yyyy-MM-dd HH:mm:ss', new Date()));
+  createdAt.textContent = `Created ${distance} ago`;
+  createdAt.classList.add('text-xs');
 
-  container.append(title, isCompleted, createdAt);
-  return container;
+  const deleteButton = createElement('p');
+  deleteButton.textContent = 'X';
+
+  mainContainer.append(checkbox, title, createdAt, deleteButton);
+  return mainContainer;
 };
 
 const createProjectElement = (project) => {
   const projectElement = document.createElement('li');
   const paragraphElement = document.createElement('p');
+
   paragraphElement.textContent = project;
   paragraphElement.classList.add('cursor-pointer', 'w-fit', 'item-project');
   projectElement.append(paragraphElement);
+
   return projectElement;
 };
 
