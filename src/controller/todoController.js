@@ -24,4 +24,4 @@ export default function addTask(task, project = 'My Day') {
   saveTodoList();
 }
 
-export { addTask, createNewProject };
+export { addTask, createNewProject, isProjectExist };
