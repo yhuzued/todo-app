@@ -25,7 +25,7 @@ const listTask = (task) => {
 
   const title = createElement('p');
   title.textContent = task.title;
-  title.classList.add('grow');
+  title.classList.add('task', 'grow');
 
   const createdAt = createElement('p');
   const distance = formatDistanceToNow(parse(task.createdAt.toString(), 'yyyy-MM-dd HH:mm:ss', new Date()));
@@ -34,7 +34,7 @@ const listTask = (task) => {
 
   const deleteButton = new Image();
   deleteButton.src = deleteIcon;
-  deleteButton.classList.add('delete', 'h-6', 'w-6', 'cursor-pointer', 'hover:scale-105');
+  deleteButton.classList.add('delete-task', 'h-6', 'w-6', 'cursor-pointer', 'hover:scale-105');
 
   mainContainer.append(checkbox, title, createdAt, deleteButton);
   return mainContainer;
@@ -49,11 +49,15 @@ const createProjectElement = (project) => {
   folder.src = folderIcon;
   folder.classList.add('folder', 'h-6', 'w-6', 'cursor-pointer', 'hover:scale-105');
 
+  const deleteButton = new Image();
+  deleteButton.src = deleteIcon;
+  deleteButton.classList.add('delete-project', 'h-6', 'w-6', 'cursor-pointer', 'hover:scale-105');
+
   const paragraphElement = createElement('p');
   paragraphElement.textContent = project;
-  paragraphElement.classList.add('cursor-pointer', 'w-fit', 'item-project');
+  paragraphElement.classList.add('cursor-pointer', 'w-fit', 'grow', 'item-project');
 
-  container.append(folder, paragraphElement);
+  container.append(folder, paragraphElement, deleteButton);
 
   projectElement.append(container);
 
