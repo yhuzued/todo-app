@@ -18,6 +18,4 @@ function isTodoListExist() {
   return localStorage.getItem(key) !== null;
 }
 
-export {
-  isTodoListExist, getTodoList, saveTodoList,
-};
+export { isTodoListExist, getTodoList, saveTodoList };
