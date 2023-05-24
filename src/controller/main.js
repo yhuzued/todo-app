@@ -2,11 +2,11 @@ import '../assets/style.css';
 import { refreshDom, notification } from './domController';
 import { getTodoList, isTodoListExist, saveTodoList } from './databaseController';
 import {
-  addTask, createNewProject, deleteProject, isProjectExist, deleteTask,
+  addTask, createNewProject, deleteProject, isProjectExist, deleteTask, changeTaskStatus,
 } from './todoController';
+import { todos } from '../model/todoDatabase';
 import circleOutline from '../assets/icon/circle-outline.svg';
 import circleCheck from '../assets/icon/check-circle-outline .svg';
-import { todos } from '../model/todoDatabase';
 
 const initializeDatabase = () => {
   createNewProject('My Day');
@@ -14,6 +14,10 @@ const initializeDatabase = () => {
 };
 
 const handleProjectItemClick = (e) => {
+  const project = document.querySelector('#title');
+  const parentNode = Array.from(e.target.parentNode.children);
+  const targetTask = parentNode.find((element) => element.classList.contains('task'));
+
   if (e.target.classList.contains('item-project')) {
     document.getElementById('title').textContent = e.target.textContent;
   }
@@ -23,10 +27,11 @@ const handleProjectItemClick = (e) => {
   }
 
   if (e.target.classList.contains('delete-task')) {
-    const project = document.querySelector('#title');
-    const parentNode = Array.from(e.target.parentNode.children);
-    const targetTask = parentNode.find((element) => element.classList.contains('task'));
     deleteTask(project.textContent, targetTask.textContent);
+  }
+
+  if (e.target.classList.contains('check')) {
+    changeTaskStatus(project.textContent, targetTask.textContent);
   }
 
   if (todos.database.length === 0) {
@@ -61,13 +66,15 @@ const handleFormSubmit = (e) => {
 };
 
 const imageOver = (e) => {
-  if (e.target.classList.contains('check')) {
+  const grandparentNode = e.target.parentNode.parentNode;
+  if (e.target.classList.contains('check') && grandparentNode.classList.contains('tasks-list')) {
     e.target.src = circleCheck;
   }
 };
 
 const imageOut = (e) => {
-  if (e.target.classList.contains('check')) {
+  const grandparentNode = e.target.parentNode.parentNode;
+  if (e.target.classList.contains('check') && grandparentNode.classList.contains('tasks-list')) {
     e.target.src = circleOutline;
   }
 };
