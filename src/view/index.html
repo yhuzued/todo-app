@@ -22,7 +22,13 @@
   </aside>
   <main id="todo" class="col-span-8 max-h-screen flex flex-col p-5 drop-shadow-lg">
     <h2 id="title" class="text-3xl px-5 py-3 bg-white drop-shadow-sm">My Day</h2>
-    <ul class="tasks-list grow max-h-fit overflow-auto bg-white px-5 py-3 bg-white"></ul>
+    <div class="grow max-h-fit overflow-auto bg-white px-5 py-3">
+      <h3 d="uncomplete-task-heading" class="text-xl underline underline-offset-4 italic mb-3">Tasks</h3>
+      <ul class="tasks-list"></ul>
+      <h3 id="completed-task-heading" class="text-xl underline underline-offset-4 italic mb-3">Completed Tasks
+      </h3>
+      <ul class="completed-tasks"></ul>
+    </div>
     <form id="new-task-form" class="flex justify-between px-5 py-3 text-white bg-slate-500">
       <input type="submit" class="px-3 py-1 text-white cursor-pointer" value="+">
       <input type="text" name="task" id="task" class="px-3 px-3 py-2 w-1/2 grow outline-none rounded-sm text-black"
