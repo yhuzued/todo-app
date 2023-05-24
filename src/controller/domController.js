@@ -3,6 +3,8 @@ import { todos } from '../model/todoDatabase';
 import circleOutline from '../assets/icon/circle-outline.svg';
 import deleteIcon from '../assets/icon/delete.svg';
 import folderIcon from '../assets/icon/folder-open-outline.svg';
+import closeIcon from '../assets/icon/close.svg';
+import undo from '../assets/icon/undo.svg';
 
 const hookElement = (element) => document.querySelector(element);
 
@@ -15,26 +17,71 @@ const notification = () => {
   }, 2000);
 };
 
+const textElementGenerator = (text) => {
+  const paragraphElement = createElement('p');
+  paragraphElement.textContent = text;
+  return paragraphElement;
+};
+
+const imageElementGenerator = (image) => {
+  const createImage = new Image();
+  createImage.src = image;
+  return createImage;
+};
+
+const insertClass = (element, classArray) => {
+  classArray.forEach((cls) => {
+    element.classList.add(cls);
+  });
+};
+
+const resetElement = (classListArray) => {
+  classListArray.forEach((cls) => {
+    const element = hookElement(cls);
+    element.innerHTML = '';
+  });
+};
+
 const listTask = (task) => {
+  const checkBoxImage = task.isCompleted ? undo : circleOutline;
+
   const mainContainer = createElement('div');
-  mainContainer.classList.add('bg-gray-100', 'p-2', 'mb-3', 'rounded-md', 'flex', 'gap-2', 'items-center');
-
-  const checkbox = new Image();
-  checkbox.src = circleOutline;
-  checkbox.classList.add('check', 'h-6', 'w-6', 'cursor-pointer');
-
-  const title = createElement('p');
-  title.textContent = task.title;
-  title.classList.add('task', 'grow');
-
-  const createdAt = createElement('p');
+  const checkbox = imageElementGenerator(checkBoxImage);
+  const title = textElementGenerator(task.title);
   const distance = formatDistanceToNow(parse(task.createdAt.toString(), 'yyyy-MM-dd HH:mm:ss', new Date()));
-  createdAt.textContent = `Created ${distance} ago`;
-  createdAt.classList.add('text-xs');
+  const createdAt = textElementGenerator(`Created ${distance} ago`);
+  const deleteButton = imageElementGenerator(deleteIcon);
 
-  const deleteButton = new Image();
-  deleteButton.src = deleteIcon;
-  deleteButton.classList.add('delete-task', 'h-6', 'w-6', 'cursor-pointer', 'hover:scale-105');
+  insertClass(mainContainer, [
+    'bg-gray-100',
+    'p-2',
+    'mb-3',
+    'rounded-md',
+    'flex',
+    'gap-2',
+    'items-center',
+  ]);
+
+  insertClass(checkbox, [
+    'check',
+    'h-6',
+    'w-6',
+    'cursor-pointer',
+    'hover:scale-110',
+  ]);
+
+  insertClass(title, [
+    'task',
+    'grow']);
+  insertClass(createdAt, ['text-xs']);
+
+  insertClass(deleteButton, [
+    'delete-task',
+    'h-6',
+    'w-6',
+    'cursor-pointer',
+    'hover:scale-105',
+  ]);
 
   mainContainer.append(checkbox, title, createdAt, deleteButton);
   return mainContainer;
@@ -42,46 +89,82 @@ const listTask = (task) => {
 
 const createProjectElement = (project) => {
   const projectElement = createElement('li');
+
   const container = createElement('div');
-  container.classList.add('item-project', 'flex', 'gap-2', 'w-fit', 'hover:outline', 'w-full', 'rounded-md', 'p-2', 'cursor-pointer');
+  const folder = imageElementGenerator(folderIcon);
+  const deleteButton = imageElementGenerator(closeIcon);
+  const paragraphElement = textElementGenerator(project);
 
-  const folder = new Image();
-  folder.src = folderIcon;
-  folder.classList.add('folder', 'h-6', 'w-6', 'cursor-pointer', 'hover:scale-105');
+  insertClass(container, [
+    'item-project',
+    'flex', 'gap-2',
+    'w-fit',
+    'hover:outline',
+    'w-full',
+    'rounded-md',
+    'p-2',
+    'cursor-pointer',
+  ]);
 
-  const deleteButton = new Image();
-  deleteButton.src = deleteIcon;
-  deleteButton.classList.add('delete-project', 'h-6', 'w-6', 'cursor-pointer', 'hover:scale-105');
+  insertClass(folder, [
+    'folder',
+    'h-6',
+    'w-6',
+    'cursor-pointer',
+    'hover:scale-105',
+  ]);
 
-  const paragraphElement = createElement('p');
-  paragraphElement.textContent = project;
-  paragraphElement.classList.add('cursor-pointer', 'w-fit', 'grow', 'item-project');
+  insertClass(deleteButton, [
+    'delete-project',
+    'h-6',
+    'w-6',
+    'cursor-pointer',
+    'hover:scale-110',
+  ]);
+
+  insertClass(paragraphElement, [
+    'cursor-pointer',
+    'w-fit',
+    'grow',
+    'item-project',
+  ]);
 
   container.append(folder, paragraphElement, deleteButton);
-
   projectElement.append(container);
 
   return projectElement;
 };
 
+const completedListEmpty = () => hookElement('.completed-tasks').childElementCount === 0;
+
 function refreshDom() {
-  const projectListElement = hookElement('.project-list');
-  const tasksListElement = hookElement('.tasks-list');
-  projectListElement.innerHTML = '';
-  tasksListElement.innerHTML = '';
+  resetElement(['.project-list', '.tasks-list', '.completed-tasks']);
 
   todos.database.forEach((project) => {
+    const projectListElement = hookElement('.project-list');
     const projectElement = createProjectElement(project.name);
     projectListElement.append(projectElement);
-
     const selectedTitle = document.getElementById('title').textContent;
+
     if (project.name === selectedTitle) {
       project.tasks.forEach((task) => {
         const tasksList = hookElement('.tasks-list');
+        const completeTask = hookElement('.completed-tasks');
+
         if (!task.isCompleted) {
           tasksList.append(listTask(task));
         }
+
+        if (task.isCompleted) {
+          completeTask.append(listTask(task));
+        }
       });
+    }
+
+    if (completedListEmpty()) {
+      hookElement('#completed-task-heading').classList.add('hidden');
+    } else {
+      hookElement('#completed-task-heading').classList.remove('hidden');
     }
   });
 }
