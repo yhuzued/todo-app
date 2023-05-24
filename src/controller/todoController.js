@@ -15,6 +15,14 @@ function insertToProject(task, project) {
   existProject.tasks.push(new Task(task));
 }
 
+function findTask(projectObject, taskName) {
+  return projectObject.tasks.find((tsk) => tsk.title === taskName);
+}
+
+function findProject(projectName) {
+  return todos.database.find((prj) => prj.name === projectName);
+}
+
 function createNewProject(project) {
   if (project === '') {
     return;
@@ -25,21 +33,28 @@ function createNewProject(project) {
 }
 
 function deleteProject(projectName) {
-  const project = todos.database.find((prj) => prj.name === projectName);
+  const project = findProject(projectName);
   const projectIndex = todos.database.indexOf(project);
   todos.database.splice(projectIndex, 1);
 }
 
 function deleteTask(projectName, taskName) {
-  const project = todos.database.find((prj) => prj.name === projectName);
-  const task = project.tasks.find((tsk) => tsk.title === taskName);
+  const project = findProject(projectName);
+  const task = findTask(project, taskName);
+  const projectIndex = todos.database.indexOf(project);
   const taskIndex = project.tasks.indexOf(task);
 
-  todos.database.forEach((prj) => {
-    if (prj.name === projectName) {
-      prj.tasks.splice(taskIndex, 1);
-    }
-  });
+  todos.database[projectIndex].tasks.splice(taskIndex, 1);
+}
+
+function changeTaskStatus(projectName, taskName) {
+  const project = findProject(projectName);
+  const task = findTask(project, taskName);
+  const projectIndex = todos.database.indexOf(project);
+  const taskIndex = project.tasks.indexOf(task);
+  const projectStatus = todos.database[projectIndex].tasks[taskIndex].isCompleted;
+
+  todos.database[projectIndex].tasks[taskIndex].isCompleted = !projectStatus;
 }
 
 function isProjectExist(project) {
@@ -55,5 +70,5 @@ export default function addTask(task, project = 'My Day') {
 }
 
 export {
-  addTask, createNewProject, isProjectExist, deleteProject, deleteTask,
+  addTask, createNewProject, isProjectExist, deleteProject, deleteTask, changeTaskStatus,
 };
